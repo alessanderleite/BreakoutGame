@@ -67,6 +67,9 @@ public class BreakoutGame extends Activity {
         int screenX;
         int screenY;
 
+        // The player's paddle
+        Paddle paddle;
+
         // When the we initialize (call new()) on gameView
         // This special constructor method runs
         public BreakoutView(Context context) {
@@ -87,6 +90,8 @@ public class BreakoutGame extends Activity {
 
             screenX = size.x;
             screenY = size.y;
+
+            paddle = new Paddle(screenX, screenX);
         }
 
         @Override
