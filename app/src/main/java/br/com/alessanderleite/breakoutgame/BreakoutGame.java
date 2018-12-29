@@ -91,7 +91,7 @@ public class BreakoutGame extends Activity {
             screenX = size.x;
             screenY = size.y;
 
-            paddle = new Paddle(screenX, screenX);
+            paddle = new Paddle(screenX, screenY);
         }
 
         @Override
@@ -123,6 +123,8 @@ public class BreakoutGame extends Activity {
         // Movement, collision detection etc.
         public void update() {
 
+            // Move the paddle if required
+            paddle.update(fps);
         }
 
         // Draw the newly updated scene
@@ -140,7 +142,7 @@ public class BreakoutGame extends Activity {
                 paint.setColor(Color.argb(255,255,255,255));
 
                 // Draw the paddle
-
+                canvas.drawRect(paddle.getRect(), paint);
                 // Draw the ball
 
                 // Draw the bricks
