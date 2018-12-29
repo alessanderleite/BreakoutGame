@@ -183,11 +183,20 @@ public class BreakoutGame extends Activity {
                 // Player has touched the screen
                 case MotionEvent.ACTION_DOWN:
 
+                    paused = false;
+
+                    if (motionEvent.getX() > screenX / 2) {
+                        paddle.setMovementState(paddle.RIGHT);
+                    }
+                    else {
+                        paddle.setMovementState(paddle.LEFT);
+                    }
                     break;
 
                 // Player has removed finger from screen
                 case MotionEvent.ACTION_UP:
 
+                    paddle.setMovementState(paddle.STOPPED);
                     break;
             }
             return true;
