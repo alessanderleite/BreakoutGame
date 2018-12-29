@@ -1,5 +1,6 @@
 package br.com.alessanderleite.breakoutgame;
 
+import android.graphics.ImageFormat;
 import android.graphics.RectF;
 
 public class Paddle {
@@ -43,5 +44,32 @@ public class Paddle {
 
         // How fast is the paddle in pixels per second
         paddleSpeed = 350;
+    }
+
+    // This is a getter method to make the rectangle that
+    // defines our paddle available in BreakoutView class
+    public RectF getRect() {
+        return rect;
+    }
+
+    // This method will be used to change/set if the paddle is going left, right or nowhere
+    public void setMovementState(int state) {
+        paddleMoving = state;
+    }
+
+    // This update method will be called from update in BreakoutView
+    // It determines if the paddle needs to move and changes the coordinates
+    // contained in rect if necessary
+    public void update(long fps) {
+        if (paddleMoving == LEFT) {
+            x = x - paddleSpeed / fps;
+        }
+
+        if (paddleMoving == RIGHT) {
+            x = x + paddleSpeed / fps;
+        }
+
+        rect.left = x;
+        rect.right = x + length;
     }
 }
