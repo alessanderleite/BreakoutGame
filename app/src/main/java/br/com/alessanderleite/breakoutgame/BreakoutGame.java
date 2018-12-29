@@ -95,5 +95,13 @@ public class BreakoutGame extends Activity {
                 }
             }
         }
+
+        // Everything that needs to be updated goes in here
+        // Movement, collision detection etc.
+        public void update() {
+
+        }
+
+        
     }
 }
