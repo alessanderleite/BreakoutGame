@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -128,6 +129,25 @@ public class BreakoutGame extends Activity {
                 // Draw everything to the screen
                 ourHolder.unlockCanvasAndPost(canvas);
             }
+        }
+
+        // If SimpleGameEngine Activity is paused/stopped
+        // shutdown our thread
+        public void pause() {
+            playing = false;
+            try {
+                gameThread.join();
+            } catch (InterruptedException e) {
+                Log.e("Error:", "joining thread");
+            }
+        }
+
+        // If SimpleGameEngine Activity is started theb
+        // start our thread
+        public void resume() {
+            playing = true;
+            gameThread = new Thread(this);
+            gameThread.start();
         }
     }
 }
