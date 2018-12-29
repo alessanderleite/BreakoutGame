@@ -157,7 +157,7 @@ public class BreakoutGame extends Activity {
         public boolean onTouchEvent(MotionEvent motionEvent) {
 
             switch (motionEvent.getAction() & MotionEvent.ACTION_MASK) {
-                
+
                 // Player has touched the screen
                 case MotionEvent.ACTION_DOWN:
 
@@ -171,4 +171,24 @@ public class BreakoutGame extends Activity {
             return true;
         }
     }
+    // This is the end of our BreakoutView inner class
+
+    // This method executes when the player starts the game
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Tell the gameView resume method to execute
+        breakoutView.resume();
+    }
+
+    // This method executes when the player quits the game
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        // Tell the gameView pause method to execute
+        breakoutView.pause();
+    }
 }
+// This is the end of the BreakoutGame class
