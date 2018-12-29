@@ -3,6 +3,7 @@ package br.com.alessanderleite.breakoutgame;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.SurfaceHolder;
@@ -102,6 +103,31 @@ public class BreakoutGame extends Activity {
 
         }
 
-        
+        // Draw the newly updated scene
+        public void draw() {
+
+            // Make sure our drawing surface is valid or we crash
+            if (ourHolder.getSurface().isValid()) {
+                // Lock the canvas ready do draw
+                canvas = ourHolder.lockCanvas();
+
+                // Draw the background color
+                canvas.drawColor(Color.argb(255,26,128,182));
+
+                // Choose the brush color for drawing
+                paint.setColor(Color.argb(255,255,255,255));
+
+                // Draw the paddle
+
+                // Draw the ball
+
+                // Draw the bricks
+
+                // Draw the HUD
+
+                // Draw everything to the screen
+                ourHolder.unlockCanvasAndPost(canvas);
+            }
+        }
     }
 }
