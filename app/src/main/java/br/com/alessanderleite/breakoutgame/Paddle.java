@@ -27,4 +27,21 @@ public class Paddle {
 
     // Is the paddle moving and in which direction
     private int paddleMoving = STOPPED;
+
+    // When we create an object from this class we will pass
+    // in the screen width and height
+    public Paddle(int screenX, int screenY) {
+        // 130 pixels wide and 20 pixels high
+        length = 130;
+        height = 20;
+
+        // Start paddle in roughly the screen centre
+        x = screenX / 2;
+        y = screenY - 20;
+
+        rect = new RectF(x, y, x + length, y + height);
+
+        // How fast is the paddle in pixels per second
+        paddleSpeed = 350;
+    }
 }
