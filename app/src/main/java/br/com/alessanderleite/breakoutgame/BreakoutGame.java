@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -148,6 +149,26 @@ public class BreakoutGame extends Activity {
             playing = true;
             gameThread = new Thread(this);
             gameThread.start();
+        }
+
+        // The SurfaceView class implements onTouchListener
+        // So we can override this method and detect screen touches.
+        @Override
+        public boolean onTouchEvent(MotionEvent motionEvent) {
+
+            switch (motionEvent.getAction() & MotionEvent.ACTION_MASK) {
+                
+                // Player has touched the screen
+                case MotionEvent.ACTION_DOWN:
+
+                    break;
+
+                // Player has removed finger from screen
+                case MotionEvent.ACTION_UP:
+
+                    break;
+            }
+            return true;
         }
     }
 }
