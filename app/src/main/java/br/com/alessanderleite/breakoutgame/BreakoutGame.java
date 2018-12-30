@@ -70,6 +70,9 @@ public class BreakoutGame extends Activity {
         // The player's paddle
         Paddle paddle;
 
+        // A ball
+        Ball ball;
+
         // When the we initialize (call new()) on gameView
         // This special constructor method runs
         public BreakoutView(Context context) {
@@ -92,6 +95,7 @@ public class BreakoutGame extends Activity {
             screenY = size.y;
 
             paddle = new Paddle(screenX, screenY);
+            ball = new Ball(screenX, screenY);
         }
 
         @Override
@@ -125,6 +129,7 @@ public class BreakoutGame extends Activity {
 
             // Move the paddle if required
             paddle.update(fps);
+            ball.update(fps);
         }
 
         // Draw the newly updated scene
@@ -143,8 +148,9 @@ public class BreakoutGame extends Activity {
 
                 // Draw the paddle
                 canvas.drawRect(paddle.getRect(), paint);
-                // Draw the ball
 
+                // Draw the ball
+                canvas.drawRect(ball.getRect(), paint);
                 // Draw the bricks
 
                 // Draw the HUD
