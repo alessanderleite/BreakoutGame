@@ -96,6 +96,14 @@ public class BreakoutGame extends Activity {
 
             paddle = new Paddle(screenX, screenY);
             ball = new Ball(screenX, screenY);
+
+            createBricksAndRestart();
+        }
+
+        public void createBricksAndRestart() {
+
+            // Put the ball back to the start
+            ball.reset(screenX, screenY);
         }
 
         @Override
