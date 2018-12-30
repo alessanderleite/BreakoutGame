@@ -73,6 +73,10 @@ public class BreakoutGame extends Activity {
         // A ball
         Ball ball;
 
+        // Up to 200 bricks
+        Brick[] bricks = new Brick[200];
+        int numBricks = 0;
+
         // When the we initialize (call new()) on gameView
         // This special constructor method runs
         public BreakoutView(Context context) {
@@ -104,6 +108,19 @@ public class BreakoutGame extends Activity {
 
             // Put the ball back to the start
             ball.reset(screenX, screenY);
+
+            int brickWidth = screenX / 8;
+            int brickHeight = screenY / 10;
+
+            // Build a wall of bricks
+            numBricks = 0;
+
+            for (int column = 0; column < 8; column++) {
+                for (int row = 0; row < 3; row++) {
+                    bricks[numBricks] = new Brick(row, column, brickWidth, brickHeight);
+                    numBricks++;
+                }
+            }
         }
 
         @Override
