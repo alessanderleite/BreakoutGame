@@ -21,4 +21,24 @@ public class Ball {
         rect = new RectF();
     }
 
+    public RectF getRect() {
+        return rect;
+    }
+
+    public void update(long fps) {
+        rect.left = rect.left + (xVelocity / fps);
+        rect.top = rect.top + (yVelocity / fps);
+        rect.right = rect.left + ballWidth;
+        rect.bottom = rect.top - ballHeight;
+    }
+
+    public void reverseYVelocity() {
+        yVelocity = -yVelocity;
+    }
+
+    public void reverseXVelocity() {
+        xVelocity = -xVelocity;
+    }
+    
+
 }
