@@ -8,6 +8,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.graphics.RectF;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Bundle;
@@ -210,7 +211,73 @@ public class BreakoutGame extends Activity {
 
             // Move the paddle if required
             paddle.update(fps);
+
             ball.update(fps);
+
+            // Check for ball colliding with a brick
+            for (int i = 0; i < numBricks; i++) {
+
+                if (bricks[i].getVisibility()) {
+
+                    if (RectF.intersects(bricks[i].getRect(), ball.getRect())) {
+                        bricks[i].setInvisible();
+                        ball.reverseYVelocity();
+                        score = score + 10;
+                        soundPool.play(explodeID, 1, 1 ,0, 0, 1);
+                    }
+                }
+            }
+
+            // Check for ball colliding with paddle
+            if (RectF.intersects(paddle.getRect(), ball.getRect())) {
+                ball.setRandomXVelocity();
+                ball.reverseYVelocity();
+                ball.clearObstacleY(paddle.getRect().top - 2);
+                soundPool.play(beep1ID,1,1,0,0,1);
+            }
+
+            // Bounce the ball back when it hits the bottom of screen
+            // And deduct a life
+            if (ball.getRect().bottom > screenY) {
+                ball.reverseYVelocity();
+                ball.clearObstacleY(screenY - 2);
+
+                // Lose a life
+                lives--;
+                soundPool.play(loseLifeId,1,1,0,0,1);
+
+                if (lives == 0) {
+                    paused = true;
+                    createBricksAndRestart();
+                }
+            }
+
+            // Bounce the ball back when it hits the top of screen
+            if (ball.getRect().top < 0) {
+                ball.reverseYVelocity();
+                ball.clearObstacleY(12);
+                soundPool.play(beep2ID,1,1,0,0,1);
+            }
+
+            // If the ball hits left wall bounce
+            if (ball.getRect().left < 0) {
+                ball.reverseXVelocity();
+                ball.clearObstacleX(2);
+                soundPool.play(beep3ID,1,1,0,0,1);
+            }
+
+            // If the ball hits right wall bounce
+            if (ball.getRect().right > screenX - 10) {
+                ball.reverseXVelocity();
+                ball.clearObstacleX(screenX - 22);
+                soundPool.play(beep3ID,1,1,0,0,1);
+            }
+
+            // Pause if cleared screen
+            if (score == numBricks * 10) {
+                paused = true;
+                createBricksAndRestart();
+            }
         }
 
         // Draw the newly updated scene
