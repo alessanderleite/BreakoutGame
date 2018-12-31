@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
@@ -76,6 +77,21 @@ public class BreakoutGame extends Activity {
         // Up to 200 bricks
         Brick[] bricks = new Brick[200];
         int numBricks = 0;
+
+        // For sound FX
+        SoundPool soundPool;
+        int beep1ID = -1;
+        int beep2ID = -1;
+        int beep3ID = -1;
+        int loseLifeId = -1;
+        int explodeID = -1;
+
+        // The score
+        int score = 0;
+
+        // Lives
+        int lives = 3;
+        
 
         // When the we initialize (call new()) on gameView
         // This special constructor method runs
@@ -176,7 +192,16 @@ public class BreakoutGame extends Activity {
 
                 // Draw the ball
                 canvas.drawRect(ball.getRect(), paint);
-                // Draw the bricks
+
+                // Change the brush color for drawing
+                paint.setColor(Color.argb(255,249,129,0));
+
+                // Draw the bricks if visible
+                for (int i = 0; i < numBricks; i++) {
+                    if (bricks[i].getVisibility()) {
+                        canvas.drawRect(bricks[i].getRect(), paint);
+                    }
+                }
 
                 // Draw the HUD
 
