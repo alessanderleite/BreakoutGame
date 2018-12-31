@@ -2,10 +2,13 @@ package br.com.alessanderleite.breakoutgame;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.AssetFileDescriptor;
+import android.content.res.AssetManager;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +16,8 @@ import android.view.Display;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+
+import java.io.IOException;
 
 public class BreakoutGame extends Activity {
 
@@ -91,7 +96,7 @@ public class BreakoutGame extends Activity {
 
         // Lives
         int lives = 3;
-        
+
 
         // When the we initialize (call new()) on gameView
         // This special constructor method runs
@@ -116,6 +121,37 @@ public class BreakoutGame extends Activity {
 
             paddle = new Paddle(screenX, screenY);
             ball = new Ball(screenX, screenY);
+
+            // Load the sounds
+
+            // This SoundPool is deprecated but don't worry
+            soundPool = new SoundPool(10, AudioManager.STREAM_MUSIC,0);
+
+            try {
+                // Create objects of the 2 required classes
+                AssetManager assetManager = context.getAssets();
+                AssetFileDescriptor descriptor;
+
+                // Load our fx in memory ready for use
+                descriptor = assetManager.openFd("beep1.ogg");
+                beep1ID = soundPool.load(descriptor, 0);
+
+                descriptor = assetManager.openFd("beep2.ogg");
+                beep2ID = soundPool.load(descriptor, 0);
+
+                descriptor = assetManager.openFd("beep3.ogg");
+                beep3ID = soundPool.load(descriptor, 0);
+
+                descriptor = assetManager.openFd("loseLife.ogg");
+                loseLifeId = soundPool.load(descriptor,0);
+
+                descriptor = assetManager.openFd("explode.ogg");
+                explodeID = soundPool.load(descriptor, 0);
+
+            } catch (IOException e) {
+                // Print an error message to the console
+                Log.e("error", "failed to load sound files");
+            }
 
             createBricksAndRestart();
         }
