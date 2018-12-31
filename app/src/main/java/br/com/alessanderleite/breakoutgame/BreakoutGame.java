@@ -244,6 +244,24 @@ public class BreakoutGame extends Activity {
                 }
 
                 // Draw the HUD
+                // Choose the brush color for drawing
+                paint.setColor(Color.argb(255,255,255,255));
+
+                // Draw the score
+                paint.setTextSize(40);
+                canvas.drawText("Score: " + score + "    Lives: " + lives, 10,50, paint);
+
+                // Has the player cleared the screen?
+                if (score == numBricks * 10) {
+                    paint.setTextSize(90);
+                    canvas.drawText("YOU HAVE WON!", 10, screenY/2, paint);
+                }
+
+                // Has the player lost?
+                if (lives <= 0 ) {
+                    paint.setTextSize(90);
+                    canvas.drawText("YOU HAVE LOST!", 10, screenY/2, paint);
+                }
 
                 // Draw everything to the screen
                 ourHolder.unlockCanvasAndPost(canvas);
