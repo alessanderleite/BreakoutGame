@@ -173,6 +173,10 @@ public class BreakoutGame extends Activity {
                     numBricks++;
                 }
             }
+
+            // Reset scores and lives
+            score = 0;
+            lives = 3;
         }
 
         @Override
